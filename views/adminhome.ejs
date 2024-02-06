@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+    <h1>Welcome, <%= username %>!</h1>
+
+    <h2>All Users</h2>
+    <table border="1">
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        <% users.forEach(user=> { %>
+            <tr>
+                <td>
+                    <%= user.name %>
+                </td>
+                <td>
+                    <%= user.email %>
+                </td>
+                <td>
+                    <% if(user.name !==username) { %>
+                        <a href="/admin/edit/<%= user._id %>">Edit</a>
+                        <a href="/admin/delete/<%= user._id %>">Delete</a>
+                        <% } %>
+                </td>
+            </tr>
+            <% }); %>
+    </table>
+
+    <h2>Create User</h2>
+    <form action="/admin/create" method="post">
+        <label for="newUsername">Username:</label>
+        <input type="text" id="newUsername" name="newUsername" required>
+
+        <label for="newEmail">Email:</label>
+        <input type="email" id="newEmail" name="newEmail" required>
+
+        <label for="newPassword">Password:</label>
+        <input type="password" id="newPassword" name="newPassword" required>
+
+        <button type="submit">Create User</button>
+    </form>
+</body>
+
+</html>

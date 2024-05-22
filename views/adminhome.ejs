@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +24,8 @@
       padding: 20px;
     }
 
-    h1, h2 {
+    h1,
+    h2 {
       color: #333;
       margin-bottom: 20px;
     }
@@ -66,17 +68,19 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 600px; /* Ensures the table doesn't get too narrow */
+      min-width: 600px;
+      /* Ensures the table doesn't get too narrow */
     }
 
-    th, td {
+    th,
+    td {
       padding: 10px;
       text-align: left;
       border-bottom: 1px solid #ddd;
     }
 
     th {
-      background-color: #f2f2f2;
+      background-color: #a39f9f;
     }
 
     .action-buttons a {
@@ -110,15 +114,6 @@
 
     .action-buttons a i {
       margin-right: 6px;
-    }
-
-    form {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
-      margin-top: 20px;
     }
 
     label {
@@ -156,24 +151,63 @@
       display: none;
     }
 
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      border-radius: 5px;
+      max-width: 400px;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
     @media (max-width: 600px) {
       table {
         display: block;
         overflow-x: auto;
       }
 
-      th, td {
+      th,
+      td {
         white-space: nowrap;
       }
     }
   </style>
+  <!-- Import Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Include SweetAlert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body>
   <div class="header">
     <h1>Welcome, <%= username %>!</h1>
-    <button class="create-user-button" onclick="toggleCreateUserForm()"><i class="fas fa-user-plus"></i>Create User</button>
+    <button class="create-user-button" onclick="openModal()"><i class="fas fa-user-plus"></i>Create User</button>
   </div>
   <h2>All Users</h2>
   <div class="table-container">
@@ -183,30 +217,38 @@
         <th>Email</th>
         <th>Action</th>
       </tr>
-      <% users.forEach(user => { %>
+      <% users.forEach(user=> { %>
         <tr>
-          <td><%= user.name %></td>
-          <td><%= user.email %></td>
+          <td>
+            <%= user.name %>
+          </td>
+          <td>
+            <%= user.email %>
+          </td>
           <td class="action-buttons">
-            <% if (user.name !== username) { %>
+            <% if (user.name !==username) { %>
               <a href="/admin/edit/<%= user._id %>" class="edit"><i class="fas fa-edit"></i>Edit</a>
               <a onclick="confirmDelete('<%= user._id %>')" class="delete"><i class="fas fa-trash-alt"></i>Delete</a>
-            <% } %>
+              <% } %>
           </td>
         </tr>
-      <% }); %>
+        <% }); %>
     </table>
   </div>
-  <div class="create-user-form">
-    <form action="/admin/create" method="post">
-      <label for="newUsername">Username:</label>
-      <input type="text" id="newUsername" name="newUsername" required>
-      <label for="newEmail">Email:</label>
-      <input type="email" id="newEmail" name="newEmail" required>
-      <label for="newPassword">Password:</label>
-      <input type="password" id="newPassword" name="newPassword" required>
-      <button type="submit">Create User</button>
-    </form>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Create User</h2>
+      <form id="createUserForm" action="/admin/create" method="post">
+        <label for="newUsername">Username:</label>
+        <input type="text" id="newUsername" name="newUsername">
+        <label for="newEmail">Email:</label>
+        <input type="email" id="newEmail" name="newEmail">
+        <label for="newPassword">Password:</label>
+        <input type="password" id="newPassword" name="newPassword">
+        <button type="submit">Create User</button>
+      </form>
+    </div>
   </div>
 
   <script>
@@ -225,11 +267,22 @@
         }
       });
     }
-
-    function toggleCreateUserForm() {
-      const form = document.querySelector('.create-user-form');
-      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    function openModal() {
+      const modal = document.getElementById('myModal');
+      modal.style.display = 'block';
     }
+
+    function closeModal() {
+      const modal = document.getElementById('myModal');
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function (event) {
+      const modal = document.getElementById('myModal');
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    };
 
     // Ensure the create user form is hidden on page load
     document.addEventListener('DOMContentLoaded', () => {
@@ -237,4 +290,5 @@
     });
   </script>
 </body>
+
 </html>

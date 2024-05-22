@@ -17,18 +17,19 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #98a883;
+      background-color: #292929; /* Dark gray background */
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      color: #f2f2f2; /* Light gray text */
     }
 
     .container {
-      background-color: #fff;
+      background-color: #1a1a1a; /* Dark background */
       padding: 40px;
       border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Darker shadow */
       max-width: 400px;
       width: 100%;
     }
@@ -36,15 +37,18 @@
     h2 {
       text-align: center;
       margin-bottom: 30px;
-      color: #333;
+      color: #fff; /* White text */
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
     .error-message {
-      background-color: #ffebee;
-      color: #e53935;
+      background-color: #3a1a1a; /* Dark red background */
+      color: #ffcdd2; /* Light red text */
       padding: 10px;
       border-radius: 5px;
       margin-bottom: 20px;
+      border: 1px solid #e53935;
     }
 
     .error-message ul {
@@ -54,46 +58,61 @@
     label {
       display: block;
       margin-bottom: 5px;
-      color: #555;
+      color: #c2c2c2; /* Light gray text */
+      font-weight: 500;
     }
 
     input[type="text"],
     input[type="password"] {
       width: 100%;
       padding: 10px;
-      border: 1px solid #ccc;
+      border: 1px solid #555; /* Dark gray border */
       border-radius: 5px;
       margin-bottom: 20px;
+      background-color: #292929; /* Dark gray background */
+      color: #f2f2f2; /* Light gray text */
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #66bb6a; /* Green border on focus */
     }
 
     button[type="submit"] {
       width: 100%;
       padding: 10px;
-      background-color: #4CAF50;
+      background-color: #66bb6a; /* Green */
       color: #fff;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     button[type="submit"]:hover {
-      background-color: #45a049;
+      background-color: #4caf50; /* Darker green on hover */
     }
 
     p {
       text-align: center;
       margin-top: 20px;
-      color: #555;
+      color: #c2c2c2; /* Light gray text */
     }
 
     a {
-      color: #4CAF50;
+      color: #66bb6a; /* Green */
       text-decoration: none;
+      font-weight: 500;
     }
 
     a:hover {
       text-decoration: underline;
+      color: #4caf50; /* Darker green on hover */
     }
   </style>
 </head>

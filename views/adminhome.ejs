@@ -1,54 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Home</title>
-    <link rel="stylesheet" href="admin.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Home</title>
+  <style>
+    /* Import Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+    /* Import Font Awesome */
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .create-user-button {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    .create-user-button i {
+      margin-right: 8px;
+    }
+
+    .create-user-button:hover {
+      background-color: #0056b3;
+    }
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px; /* Ensures the table doesn't get too narrow */
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .action-buttons a {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      margin-right: 10px;
+      border-radius: 4px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    .action-buttons a.edit {
+      background-color: #17a2b8;
+    }
+
+    .action-buttons a.edit:hover {
+      background-color: #138496;
+    }
+
+    .action-buttons a.delete {
+      background-color: #dc3545;
+    }
+
+    .action-buttons a.delete:hover {
+      background-color: #c82333;
+    }
+
+    .action-buttons a i {
+      margin-right: 6px;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #218838;
+    }
+
+    .create-user-form {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+
+      th, td {
+        white-space: nowrap;
+      }
+    }
+  </style>
+  <!-- Include SweetAlert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-
 <body>
+  <div class="header">
     <h1>Welcome, <%= username %>!</h1>
-
-    <h2>All Users</h2>
-    <table border="1">
+    <button class="create-user-button" onclick="toggleCreateUserForm()"><i class="fas fa-user-plus"></i>Create User</button>
+  </div>
+  <h2>All Users</h2>
+  <div class="table-container">
+    <table>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+      <% users.forEach(user => { %>
         <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Action</th>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td class="action-buttons">
+            <% if (user.name !== username) { %>
+              <a href="/admin/edit/<%= user._id %>" class="edit"><i class="fas fa-edit"></i>Edit</a>
+              <a onclick="confirmDelete('<%= user._id %>')" class="delete"><i class="fas fa-trash-alt"></i>Delete</a>
+            <% } %>
+          </td>
         </tr>
-        <% users.forEach(user=> { %>
-            <tr>
-                <td>
-                    <%= user.name %>
-                </td>
-                <td>
-                    <%= user.email %>
-                </td>
-                <td>
-                    <% if(user.name !==username) { %>
-                        <a href="/admin/edit/<%= user._id %>">Edit</a>
-                        <a href="/admin/delete/<%= user._id %>">Delete</a>
-                        <% } %>
-                </td>
-            </tr>
-            <% }); %>
+      <% }); %>
     </table>
-
-    <h2>Create User</h2>
+  </div>
+  <div class="create-user-form">
     <form action="/admin/create" method="post">
-        <label for="newUsername">Username:</label>
-        <input type="text" id="newUsername" name="newUsername" required>
-
-        <label for="newEmail">Email:</label>
-        <input type="email" id="newEmail" name="newEmail" required>
-
-        <label for="newPassword">Password:</label>
-        <input type="password" id="newPassword" name="newPassword" required>
-
-        <button type="submit">Create User</button>
+      <label for="newUsername">Username:</label>
+      <input type="text" id="newUsername" name="newUsername" required>
+      <label for="newEmail">Email:</label>
+      <input type="email" id="newEmail" name="newEmail" required>
+      <label for="newPassword">Password:</label>
+      <input type="password" id="newPassword" name="newPassword" required>
+      <button type="submit">Create User</button>
     </form>
-</body>
+  </div>
 
+  <script>
+    function confirmDelete(userId) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = `/admin/delete/${userId}`;
+        }
+      });
+    }
+
+    function toggleCreateUserForm() {
+      const form = document.querySelector('.create-user-form');
+      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Ensure the create user form is hidden on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('.create-user-form').style.display = 'none';
+    });
+  </script>
+</body>
 </html>

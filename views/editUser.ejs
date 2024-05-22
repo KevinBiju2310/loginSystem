@@ -1,25 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="/edituser.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit User</title>
+  <style>
+    /* Import Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #424280;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #f5f5f7;
+    }
+
+    .container {
+      background-color: #2c2c2e;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #f5f5f7;
+      font-weight: 700;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #d1d1d6;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #3a3a3c;
+      border-radius: 6px;
+      margin-bottom: 25px;
+      font-size: 16px;
+      background-color: #3a3a3c;
+      color: #f5f5f7;
+    }
+
+    input[type="text"]::placeholder,
+    input[type="email"]::placeholder {
+      color: #8e8e93;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background-color: #0a84ff;
+      color: #f5f5f7;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #006ddf;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="container">
     <h1>Edit User</h1>
-
     <form action="/admin/update/<%= user.id %>" method="post">
-        <label for="updatedUsername">Username:</label>
-        <input type="text" id="updatedUsername" name="updatedUsername" value="<%= user.name %>" required>
-
-        <label for="updatedEmail">Email:</label>
-        <input type="email" id="updatedEmail" name="updatedEmail" value="<%= user.email %>" required>
-
-        <button type="submit">Update User</button>
+      <label for="updatedUsername">Username:</label>
+      <input type="text" id="updatedUsername" name="updatedUsername" value="<%= user.name %>" required placeholder="Enter username">
+      <label for="updatedEmail">Email:</label>
+      <input type="email" id="updatedEmail" name="updatedEmail" value="<%= user.email %>" required placeholder="Enter email">
+      <button type="submit">Update User</button>
     </form>
+  </div>
 </body>
-
 </html>

@@ -1,11 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomePage</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <style>
+    /* Import Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      color: #343a40;
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+
+    p {
+      color: #495057;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    span {
+      font-weight: 500;
+    }
+  </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Welcome to HomePage</h1>
+  <div class="container">
+    <h1>Welcome to Home Page</h1>
+    <p>Username: <span><%= username %></span></p>
+  </div>
 </body>
 </html>

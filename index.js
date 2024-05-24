@@ -185,10 +185,11 @@ app.post('/admin/create', async (req, res) => {
         if (!req.session.user || req.session.user.userType !== 'admin') {
             return res.redirect('/');
         }
+        const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
         const newData = {
             name: req.body.newUsername,
             email: req.body.newEmail,
-            password: req.body.newPassword,
+            password: hashedPassword,
             userType: 'user' // set the user type accordingly
         };
         // Add new user to the database
